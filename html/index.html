@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>TakeAdmin</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="menu" class="hidden">
+        <div id="banner">
+            <img src="banner.png" alt="" draggable="false" onerror="this.parentElement.classList.add('no-image')">
+            <span class="fallback">TakeAdmin</span>
+        </div>
+
+        <div id="subtitle">
+            <span id="sub-text"></span>
+            <span id="counter"></span>
+        </div>
+        <div id="items"></div>
+        <div id="footer">
+            <svg viewBox="0 0 24 24" width="22" height="22"><path d="M7 10l5-5 5 5M7 14l5 5 5-5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div id="description" class="hidden"></div>
+    </div>
+
+    <div id="notifications"></div>
+
+    <div id="big-message" class="hidden">
+        <div class="bm-title"></div>
+        <div class="bm-text"></div>
+    </div>
+
+    <div id="screenshot" class="hidden">
+        <div class="ss-head"><span class="ss-name"></span><span class="ss-hint"><kbd>⌫</kbd> Schließen</span></div>
+        <img alt="">
+    </div>
+
+    <textarea id="clipboard"></textarea>
+    <script src="script.js"></script>
+</body>
+</html>
