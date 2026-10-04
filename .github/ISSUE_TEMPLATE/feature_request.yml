@@ -1,0 +1,60 @@
+name: "💡 Feature-Wunsch"
+description: "Eine neue Funktion oder eine Verbesserung vorschlagen."
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Danke für deinen Vorschlag! Bitte prüfe kurz, ob es dafür schon ein Issue gibt:
+        [bestehende Vorschläge durchsuchen](../issues?q=is%3Aissue+label%3Aenhancement).
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Welches Problem löst das Feature?
+      description: Woran fehlt es aktuell? Welcher Ablauf ist umständlich?
+      placeholder: "Als Admin möchte ich ..., damit ..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Gewünschte Lösung
+      description: Wie stellst du dir die Funktion vor? Wo im Menü würde sie sitzen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternativen
+      description: Hast du andere Lösungswege oder Workarounds erwogen?
+    validations:
+      required: false
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Betroffener Bereich
+      options:
+        - Spielerverwaltung
+        - ESX
+        - Banns & Reports
+        - Eigene Optionen (Noclip, Godmode ...)
+        - Fahrzeuge
+        - Server
+        - Konfiguration
+        - Menü / UI
+        - Sonstiges
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Weiterer Kontext
+      description: Mockups, Beispiele von anderen Menüs, Links usw.
+    validations:
+      required: false

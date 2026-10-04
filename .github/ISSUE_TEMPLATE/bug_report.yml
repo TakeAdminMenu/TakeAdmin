@@ -1,0 +1,110 @@
+name: "🐞 Bug melden"
+description: "Ein Fehler, ein Crash oder ein unerwartetes Verhalten in TakeAdmin."
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Danke, dass du dir die Zeit nimmst, einen Bug zu melden!
+        Bitte fülle die Felder möglichst vollständig aus — das spart für beide Seiten Zeit.
+        Vorher kurz prüfen, ob der Fehler schon gemeldet wurde: [bestehende Issues durchsuchen](../issues?q=is%3Aissue).
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Vorab-Checks
+      options:
+        - label: Ich habe die bestehenden Issues durchsucht und keinen Duplikat-Report gefunden.
+          required: true
+        - label: Ich nutze die neueste Version von TakeAdmin.
+          required: true
+        - label: Der Fehler tritt auch ohne andere, nicht benötigte Ressourcen auf (soweit prüfbar).
+          required: false
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Beschreibung
+      description: Was ist passiert? Was hast du stattdessen erwartet?
+      placeholder: "Beim Öffnen des Spielermenüs wird der Server-Thread blockiert ..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Schritte zum Reproduzieren
+      description: So genau wie möglich, damit wir den Fehler nachstellen können.
+      value: |
+        1. Menü mit F2 öffnen
+        2. ...
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Konsolen-Ausgabe / Fehlermeldung
+      description: Relevante Zeilen aus der Server- oder F8-Client-Konsole. Wird automatisch als Code formatiert.
+      render: text
+    validations:
+      required: false
+
+  - type: dropdown
+    id: side
+    attributes:
+      label: Wo tritt der Fehler auf?
+      options:
+        - Client (F8 / im Spiel)
+        - Server (Server-Konsole)
+        - Beides
+        - Unbekannt
+    validations:
+      required: true
+
+  - type: dropdown
+    id: framework
+    attributes:
+      label: Framework
+      options:
+        - ESX Legacy
+        - Standalone
+    validations:
+      required: true
+
+  - type: dropdown
+    id: storage
+    attributes:
+      label: Speichermodus (Config.Storage)
+      options:
+        - MySQL (oxmysql)
+        - JSON
+        - Unbekannt
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: TakeAdmin-Version
+      placeholder: "z. B. 1.2.0 oder Commit-Hash"
+    validations:
+      required: true
+
+  - type: input
+    id: artifacts
+    attributes:
+      label: FXServer / Artifacts-Version
+      placeholder: "z. B. 12029"
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Weiterer Kontext
+      description: Relevante Ressourcen (ox_inventory, OneSync-Status, Wetter-Sync usw.), Screenshots oder Videos.
+    validations:
+      required: false
