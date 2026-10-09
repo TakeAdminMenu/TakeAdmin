@@ -600,7 +600,7 @@ function ServerMenu()
         end)
     end
     if Can('weather') then
-        items[#items + 1] = List('Wetter', '←/→ wählen, Enter = setzen. (Wetter-Sync-Skripte können überschreiben)', Config.Weather, 1, function(_, w)
+        items[#items + 1] = List('Wetter', '←/→ wählen, Enter = setzen.', Config.Weather, 1, function(_, w)
             DoAction('weather', nil, { weather = w })
         end)
     end

@@ -345,18 +345,54 @@ RegisterNetEvent('takeadmin:revive', function()
     ClearPedBloodDamage(ped)
 end)
 
+local weatherTransition = false
+
 RegisterNetEvent('takeadmin:setWeather', function(weather)
+    weatherTransition = true
     ClearOverrideWeather()
     ClearWeatherTypePersist()
     SetWeatherTypeOvertimePersist(weather, 15.0)
     SetTimeout(15000, function()
         SetWeatherTypeNowPersist(weather)
         SetOverrideWeather(weather)
+        weatherTransition = false
     end)
 end)
 
 RegisterNetEvent('takeadmin:setTime', function(h, m)
     NetworkOverrideClockTime(h, m, 0)
+end)
+
+-- Admin-Uhrzeit festhalten (läuft normal weiter: 1 Ingame-Minute = 2 Sekunden).
+-- Verhindert, dass Sync-Skripte die Zeit wieder auf Tag zurücksetzen.
+CreateThread(function()
+    while true do
+        local t = GlobalState.takeadmin_time
+        if t then
+            local mins = (t.h * 60 + t.m + math.floor((GetCloudTimeAsInt() - t.t) / 2)) % 1440
+            local h, m = mins // 60, mins % 60
+            if GetClockHours() ~= h or GetClockMinutes() ~= m then
+                NetworkOverrideClockTime(h, m, 0)
+            end
+            Wait(0)
+        else
+            Wait(1000)
+        end
+    end
+end)
+
+-- Admin-Wetter festhalten (auch für Spieler, die später joinen)
+CreateThread(function()
+    while true do
+        Wait(1000)
+        local w = GlobalState.takeadmin_weather
+        if w and not weatherTransition and GetPrevWeatherTypeHashName() ~= joaat(w) then
+            ClearOverrideWeather()
+            ClearWeatherTypePersist()
+            SetWeatherTypeNowPersist(w)
+            SetOverrideWeather(w)
+        end
+    end
 end)
 
 RegisterNetEvent('takeadmin:showScreenshot', function(data, name)

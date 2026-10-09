@@ -447,6 +447,8 @@ end)
 
 Action('time', 'time', false, function(src, _, data)
     local h = math.floor(tonumber(data.hour) or 12) % 24
+    -- Startzeit + Zeitstempel: Clients rechnen daraus die laufende Uhrzeit und halten sie fest
+    GlobalState.takeadmin_time = { h = h, m = 0, t = os.time() }
     TriggerClientEvent('takeadmin:setTime', -1, h, 0)
     Notify(src, ('Uhrzeit: %02d:00'):format(h), 'success')
     Log(src, 'Uhrzeit geändert', nil, ('%02d:00'):format(h))
