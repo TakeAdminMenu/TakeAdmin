@@ -19,13 +19,28 @@ local function checksum(data)
     return h
 end
 
+-- Binär direkt von der Platte lesen: LoadResourceFile bricht bei Binärdateien (PNG) am ersten Null-Byte ab
+local function readFile(file)
+    local path = GetResourcePath(GetCurrentResourceName())
+    local f = path and io.open(path .. '/' .. file, 'rb')
+    if f then
+        local data = f:read('a')
+        f:close()
+        return data
+    end
+    return LoadResourceFile(GetCurrentResourceName(), file)
+end
+
 local broken = {}
 for _, p in ipairs(PROTECTED) do
-    local data = LoadResourceFile(GetCurrentResourceName(), p.file)
+    local data = readFile(p.file)
     -- Zeilenenden ignorieren, damit Git unter Windows (CRLF) die Prüfung nicht bricht
     if data and p.text then data = data:gsub('\r', '') end
-    if not data or checksum(data) ~= p.hash then
+    local sum = data and checksum(data)
+    if sum ~= p.hash then
         broken[#broken + 1] = p.file
+        print(('^3[TakeAdmin] Prüfung %s: %s Bytes, Prüfsumme %s (erwartet %08X)^0'):format(
+            p.file, data and #data or 'nicht gefunden', sum and ('%08X'):format(sum) or '-', p.hash))
     end
 end
 

@@ -18,10 +18,13 @@ Config.AccentColor = '#3b82f6'
 -- ESX: Gruppe kommt von xPlayer.getGroup()
 -- ACE: add_ace group.admin takeadmin.admin allow   (Name nach "takeadmin." = Gruppenname hier)
 Config.Groups = {
-    ['superadmin'] = 100,
-    ['admin']      = 80,
-    ['mod']        = 50,
-    ['support']    = 20,
+    ['leitung'] = 100,
+    ['dev']      = 100,
+    ['verwaltung']        = 80,
+    ['administrator']    = 80,
+    ['moderator'] = 50,
+    ['supporter'] = 20,
+    ['guide'] = 20,
 }
 Config.UseAce = true
 
